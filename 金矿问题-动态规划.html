@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	var times = 0
+	// 将金矿数量设为n，工人数量设为w，金矿的含金量设为数组g[]，金矿所需开采人数设为p[]
+	function fn(n, w, g, p) {
+		times++
+		// 问题边界 停止递归的条件
+		if (n == 0 || w == 0) {
+			return 0
+		}
+		// 所剩工人不足以挖当前金矿
+		if (w < p[n-1]) {
+			return fn(n-1, w, g, p)
+		}
+		return Math.max(fn(n-1, w, g, p), fn(n-1, w-p[n-1], g, p)+g[n-1])
+	}
+	var n = 5
+	var w = 10
+	var g = [400, 500, 200, 300, 350]
+	var p = [5, 5, 3, 4, 3]
+	console.log(fn(n, w, g, p))
+	console.log(times)
+</script>
+</html>

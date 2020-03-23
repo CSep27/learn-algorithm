@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	function getMaxSortedDistance (array) {
+		// 1.原数组最大最小值
+		var max = array[0]
+		var min = array[0]
+		for (var i = 1; i < array.length; i++) {
+			if (array[i] > max) {
+				max = array[i]
+			}
+			if (array[i] < min) {
+				min = array[i]
+			}
+		}
+
+		// 如果max 和min 相等，说明数组所有元素都相等，返回0
+		var d = max - min
+		if (d === 0) {
+			return 0
+		}
+
+		// 2.初始化桶
+		var bucketNum = array.length
+		var buckets = new Array(bucketNum)
+		for (var i = 0; i < buckets.length; i++) {
+			buckets[i] = new Array()
+		}
+
+		// 3.遍历原始数组 确定每个桶的最大最小值
+		for (var i = 0; i < array.length; i++) {
+			// 确定数组元素所属桶的下标
+			var index = Math.floor(((array[i] - min)  * (bucketNum-1) / d))
+			if (buckets[index].min == null || buckets[index].min > array[i]) {
+				buckets[index].min = array[i]
+			}
+			if (buckets[index].max == null || buckets[index].max < array[i]) {
+				buckets[index].max = array[i]
+			}
+		}
+
+		// 4.遍历桶 找到最大差值
+		var leftMax = buckets[0].max
+		var maxDistance = 0
+		for (var i = 1; i < buckets.length; i++) {
+			if (buckets[i].min == null) {
+				continue
+			}
+			if (buckets[i].min - leftMax > maxDistance) {
+				maxDistance = buckets[i].min - leftMax
+			}
+			leftMax = buckets[i].max
+		}
+
+		return maxDistance
+	}
+	var arr = [2, 6, 3, 4, 5, 10, 9]
+	console.log(getMaxSortedDistance(arr))
+</script>
+</html>

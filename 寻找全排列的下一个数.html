@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	function findNearestNumber (arr) {
+		// 找到逆序临界点位置
+		function findTransferPoint (arr) {
+			for (var i = arr.length - 1; i >= 0; i--) {
+				if (arr[i] > arr[i-1]) {
+					return i
+				}
+			}
+			return 0
+		}
+		// 将逆序临界点前一位数head和逆序区大于head的最小一位数交换
+		function exchangeHead (arr, index) {
+			var head = arr[index-1]
+			// 逆序区，从后向前遍历，出现的第一个大于head的数即为需要交换的数
+			for (var i = arr.length-1;i>0; i--) {
+				if (arr[i] < head) {
+					arr[index-1] = arr[i]
+					arr[i] = head
+					break
+				}
+			}
+		}
+		// 逆序数组改成顺序 首尾对应元素调换顺序 i从前向后索引 j从后向前索引
+		function reverse (arr, index) {
+			for (var i = index,j = arr.length -1;i<j; i++,j--) {
+				var temp = arr[i]
+				arr[i] = arr[j]
+				arr[j] = temp
+			}
+		}
+		
+		// 逆序边界
+		var index = findTransferPoint(arr)
+		// 为0表示整个数组已经逆序
+		if (index === 0) {
+			return null
+		}
+
+		var arrCopy = arr.concat([])
+		exchangeHead(arrCopy, index)
+		reverse(arrCopy, index)
+		return arrCopy	
+	}
+	
+	console.log(findNearestNumber([1,2,3,5,4]))
+</script>
+</html>

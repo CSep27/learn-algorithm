@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	// 选定基准元素 数组第一个元素
+	/* 
+	right 右指针 右指针指向的元素如果大于基准元素，元素位置不动，指针左移1位；
+	如果小于，和左指针元素交换
+	left 左指针 左指针指向的元素如果小于或等于基准元素，元素位置不动，指针右移1位；
+	如果大于，和右指针元素交换
+	第一次比较结束后基准元素左边所有元素均小于它，右边均大于它
+	然后再讲左右两边分开再进行排序
+	递归调用
+	*/
+	function quickSort (arr, startIndex, endIndex) {
+		// 递归结束条件
+		if (startIndex >= endIndex) {
+			return
+		}
+		// 得到基准元素位置
+		var pivotIndex = partition(arr,  startIndex, endIndex)
+		// 根据基准元素，分成两部分进行递归排序
+		quickSort(arr, startIndex, pivotIndex - 1)
+		quickSort(arr, pivotIndex + 1, endIndex)
+		return arr
+
+	}
+	function partition (arr, startIndex, endIndex) {
+		// 基准元素 也可以随机取
+		var pivot = arr[startIndex]
+		var left = startIndex
+		var right = endIndex
+		// 控制循环条件 左右指针不等时
+		while (left !== right) {
+			// 控制right 指针比较并左移
+			while (left < right && arr[right] > pivot) {
+				right--
+			}
+			// 控制left 指针比较并右移
+			while (left < right && arr[left] <= pivot) {
+				left++
+			}
+			// 交换left和right指针指向的位置
+			if (left < right) {
+				var temp = arr[left]
+				arr[left] = arr[right]
+				arr[right] = temp
+			}
+		}
+		// 基准元素和指针重合点元素交换
+		arr[startIndex] = arr[left]
+		arr[left] = pivot
+		return left
+	}
+	var arr = [4,4,6,5,3,2,8,1]
+	console.log(quickSort(arr, 0, arr.length - 1))
+</script>
+</html>

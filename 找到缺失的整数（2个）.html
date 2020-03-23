@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	var arr = [4,1,2,2,5,1,4,3]
+	function fn (arr) {
+		var result = new Array(2)
+
+		var temp = null
+		for (let i = 0; i < arr.length; i++) {
+			temp = temp ^ arr[i]
+		}
+		console.log(temp)
+		var tempBinary = temp.toString(2)
+		console.log(typeof tempBinary)
+		var index = -1
+		var k = -1
+		while ((k = tempBinary.indexOf('1', k)) > -1) {
+			index = k
+			k++
+		}
+		console.log(index)
+		var arr1 = []
+		var arr2 = []
+		for (let i = 0; i < arr.length; i++) {
+			var t = arr[i].toString(2).slice(index, 1)
+			console.log(t)
+			if (t == 1) {
+				arr1.push(arr[i])
+			} else {
+				arr2.push(arr[i])
+			}
+		}
+		console.log(arr1)
+		console.log(arr2)
+
+		for (let i = 0; i < arr1.length; i++) {
+			result[0] = result[0] ^ arr1[i]
+		}
+		for (let i = 0; i < arr2.length; i++) {
+			result[1] = result[1] ^ arr1[i]
+		}
+		return result
+	}
+	
+	console.log(fn(arr))
+</script>
+</html>

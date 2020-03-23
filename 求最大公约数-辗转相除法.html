@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	var times = 0
+	function algorithm (a, b) {
+		times++
+		var big = a > b ? a : b
+		var small = a > b ? b : a
+		// 找到最大公约数的条件 此时结束递归 并将找到的值返回
+		if (big % small === 0) {
+			return small
+		}
+		return algorithm(big % small, small) // 返回找到的最大公约数
+	}
+	console.log(algorithm(27000, 14000))
+</script>
+</html>

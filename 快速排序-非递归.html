@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	function quickSort (arr, startIndex, endIndex) {
+		// return
+		// 递归结束条件
+		if (startIndex >= endIndex) {
+			return
+		}
+		// 得到基准元素位置
+		var pivotIndex = partition(arr,  startIndex, endIndex)
+		// 根据基准元素，分成两部分进行递归排序
+		quickSort(arr, startIndex, pivotIndex - 1)
+		quickSort(arr, pivotIndex + 1, endIndex)
+		return arr
+
+	}
+	function partition (arr, startIndex, endIndex) {
+		// 基准元素
+		var pivot = arr[startIndex]
+		var mark = startIndex
+		for (var i = startIndex + 1; i <= endIndex; i++) {
+			// 交换元素与mark元素的位置
+			if (arr[i] < pivot) {
+				mark++
+				var temp = arr[mark]
+				arr[mark] = arr[i]
+				arr[i] = temp
+			}
+		}
+		// 基准元素和mark元素交换
+		arr[startIndex] = arr[mark]
+		arr[mark] = pivot
+		return mark
+	}
+	var arr = [4,4,6,5,3,2,8,1]
+	console.log(quickSort(arr, 0, arr.length - 1))
+</script>
+</html>

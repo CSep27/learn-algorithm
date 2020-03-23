@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	var times = 0
+	function algorithm (a, b) {
+		times++
+		if (a === b) {
+			return a
+		}
+		var big = a > b ? a : b
+		var small = a > b ? b : a
+		return algorithm(big - small, small)
+	}
+	console.log(algorithm(27000, 14000))
+
+</script>
+</html>

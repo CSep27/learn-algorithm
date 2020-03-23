@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	// 工人数量设为w，金矿的含金量设为数组g[]，金矿所需开采人数设为p[]
+	function fn(w, g, p) {
+		var resultTable = new Array(g.length + 1)
+		for (var i = 0; i < resultTable.length; i++) {
+			resultTable[i] = new Array(w+1)
+			for (var j = 0; j < w+1; j++) {
+				resultTable[i][j] = 0
+			}
+		}
+		console.log(resultTable)
+
+		for (var i = 1; i <= g.length; i++) {
+			for (var j = 1; j <= w; j++) {
+				if (j < p[i-1]) {
+					resultTable[i][j] = resultTable[i-1][j] 
+				} else {
+					resultTable[i][j] = Math.max(resultTable[i-1][j], resultTable[i-1][j-p[i-1]] + g[i-1])
+				}
+			}
+		}
+		return resultTable[g.length][w]
+	}
+	var w = 10
+	var g = [400, 500, 200, 300, 350]
+	var p = [5, 5, 3, 4, 3]
+	console.log(fn(w, g, p))
+</script>
+</html>

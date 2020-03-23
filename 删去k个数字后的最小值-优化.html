@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	function removeKDigits (num, k) {
+		// 新整数的长度 = 原整数长度 - k
+		var num = num.toString()
+		var newLength = num.length - k
+		// 创建一个栈，用于接收所有数字
+		var stack = new Array(num.length)
+		var top = 0
+		for (var i = 0; i < num.length; ++i) {
+			// 遍历当前数字
+			var c = num.charAt(i)
+			// 当前一个元素大于当前遍历到的元素时，栈顶元素出栈
+			while (top > 0 && stack[top - 1] > c && k > 0){
+				top -= 1
+				k -= 1
+			}
+			// 遍历到的当前元素入栈
+			stack[top++] = c
+		}
+		// 找到栈中第一个非0数字的位置，以此构建新的整数字符串
+		var offset = 0
+		while (offset < newLength && stack[offset] == 0) {
+			offset++
+		}
+		return offset == newLength ? "0" : stack.splice(offset, newLength - offset).join('')
+	}
+	console.log(removeKDigits(541270936, 3))
+	console.log(removeKDigits(100123, 1))
+	console.log(removeKDigits(12345, 1))
+	console.log(removeKDigits(12345, 5))
+</script>
+</html>

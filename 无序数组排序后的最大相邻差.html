@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	function fn (array) {
+		// 1.原数组最大最小值
+		var max = array[0]
+		var min = array[0]
+		for (var i = 1; i < array.length; i++) {
+			if (array[i] > max) {
+				max = array[i]
+			}
+			if (array[i] < min) {
+				min = array[i]
+			}
+		}
+		// 2.计数数组 根据下标填充进原数组数值的出现次数
+		var countArray = new Array(max-min+1)
+		for (var i = 0; i < countArray.length; i++) {
+			countArray[i] = 0
+		}
+		for (var i = 0; i < array.length; i++) {
+			countArray[array[i]-min]++
+		}
+		// 3.判断连续出现0的次数 +1即为差值
+		var num = 0
+		var maxNum = 0
+		for (var i = 0; i < countArray.length; i++) {
+			if (countArray[i] === 0) {
+				num++
+			} else {
+				if (num > maxNum) {
+					maxNum = num
+				}
+				num = 0
+			}
+		}
+		// 普通判断数组中某个值连续出现次数的情况下，
+		// 最后数据都为0时，没有进上面的else循环，需要在循环体外再判断一次，
+		// 这里可以不用，因为最后一个数字不会为0
+		/*if (num > maxNum) {
+			maxNum = num
+		}*/
+		return maxNum+1
+	}
+	var arr = [2, 6, 3, 4, 5, 10, 9]
+	console.log(fn(arr))
+</script>
+</html>

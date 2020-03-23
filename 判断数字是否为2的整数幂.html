@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	// 普通解法
+	/*function isPowerOf2 (num) {
+		var a = 1
+		while (num !== a && a < num) {
+			a = a<<2
+		}
+		return num === a
+	}*/
+	/*function isPowerOf2 (num) {
+		var a = 1
+		while (a <= num) {
+			if(a === num){
+				return true
+			}
+			a = a<<2
+		}
+		return false
+	}*/
+	// 最优解法
+	function isPowerOf2 (num) {
+		return (num & num - 1) === 0
+	}
+	console.log(isPowerOf2(4))
+	console.log(isPowerOf2(1))
+	console.log(isPowerOf2(5))
+	console.log(isPowerOf2(6))
+</script>
+</html>

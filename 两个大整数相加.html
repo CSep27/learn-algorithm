@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	function add (a, b) {
+		var length = a.length > b.length ? (a.length + 1) : (b.length + 1)
+		var arrA = []
+		var arrB = []
+		var arrR = []
+		for (var i = 0; i < length; i++) {
+			arrA[i] = a[a.length - 1 - i] == undefined ? 0 : a[a.length - 1 - i]
+			arrB[i] = b[b.length - 1 - i] == undefined ? 0 : b[b.length - 1 - i]
+			arrR[i] = 0
+		}
+		console.log(arrA)
+		for (var i = 0; i < length; i++) {
+			var sum = Number(arrA[i]) + Number(arrB[i]) + arrR[i]
+			if (sum > 9) {
+				arrR[i] = sum - 10
+				arrR[i + 1] = 1
+			} else {
+				arrR[i] = sum
+			}
+		}
+		console.log(arrR)
+		return parseInt(arrR.reverse().join(''))	
+	}
+	console.log(add('426709752318', '95481253129'))
+</script>
+</html>

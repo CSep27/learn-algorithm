@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	function removeKDigits (num, k) {
+		var strArr = num.toString().split('')
+		function removeOneDigit (strArr) {
+			for (var i = 0; i < strArr.length; i++) {
+				if (Number(strArr[i]) > Number(strArr[i + 1])){
+					strArr.splice(i, 1)
+					hasCut = true
+					break
+				}
+			}
+		}
+		var hasCut = false
+		while (k > 0) {
+			k--
+			hasCut = false
+			removeOneDigit(strArr)
+		}
+		// 如果没有找到要删除的数字，则删除最后一个数字
+		if (!hasCut) {
+			strArr.splice(strArr.length - 1, 1)
+		}
+		// 清除左侧为0的数字 用parseInt方法不需要这一步
+		/*function removeZero (strArr) {
+			if (strArr[0] != 0) {
+				return strArr
+			}
+			for (var i = 1; i < strArr.length; i++) {
+				if (strArr[i] != 0){
+					return strArr.slice(i)
+				}
+			}
+		}
+		strArr = removeZero(strArr)
+		console.log(strArr)*/
+		// 如果整数的所有数字都被删除了，直接返回0
+		if (strArr.length === 0) {
+			return 0
+		}
+		return parseInt(strArr.join(''))
+	}
+	console.log(removeKDigits(541270936, 3))
+	console.log(removeKDigits(100123, 1))
+	console.log(removeKDigits(12345, 1))
+</script>
+</html>
