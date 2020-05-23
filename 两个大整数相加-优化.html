@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	function add (a, b) {
+		var length = a.length > b.length ? (a.length + 1) : (b.length + 1)
+		var arrA = []
+		var arrB = []
+		var arrR = []
+		for (var i = 0; i < length; i++) {
+			arrA[i] = a[a.length - 1 - i] == undefined ? 0 : a[a.length - 1 - i]
+			arrB[i] = b[b.length - 1 - i] == undefined ? 0 : b[b.length - 1 - i]
+			arrR[i] = 0
+		}
+		console.log(arrA)
+		for (var i = 0; i < length; i++) {
+			var sum = Number(arrA[i]) + Number(arrB[i]) + arrR[i]
+			if (sum > 9) {
+				arrR[i] = sum - 10
+				arrR[i + 1] = 1
+			} else {
+				arrR[i] = sum
+			}
+		}
+		console.log(arrR)
+		if (arrR[arrR.length -1] === 0) {
+			arrR.pop(arrR[arrR.length -1])
+		}
+		return arrR.reverse().join('')
+	}
+	console.log(add('426709752318', '95481253129'))
+	
+	function addBigNumber (a, b, num) {
+		// 多少位为一组划分后进行相加操作
+		// 默认是最大安全数字长度减1
+		var num = num || Number.MAX_SAFE_INTEGER - 1
+		// 根据num计算进位临界值（例如：999）
+		var num2 = num
+		var range = ''
+		while (num2 > 0) {
+			range += '9'
+			num2--
+		}
+		var rangeNum = Number(range)
+		// 根据较长字符串计算出数组长度
+		var length = Math.ceil((a.length > b.length ? (a.length + 1) : (b.length + 1)) / num)
+		var arrA = []
+		var arrB = []
+		var arrR = []
+		for (var i = 0; i < length; i++) {
+			// slice方法传入负数，实现从后往前以num为跨度划分
+			if (i === 0) {
+				arrA[i] = a.slice(-num*(i+1)) == '' ? 0 : a.slice(-num*(i+1))
+				arrB[i] = b.slice(-num*(i+1)) == '' ? 0 : b.slice(-num*(i+1))
+				arrR[i] = 0
+				continue
+			}
+			arrA[i] = a.slice(-num*(i+1), -num*i) == '' ? 0 : a.slice(-num*(i+1), -num*i)
+			arrB[i] = b.slice(-num*(i+1), -num*i) == '' ? 0 : b.slice(-num*(i+1), -num*i)
+			arrR[i] = 0
+		}
+		console.log(arrA)
+		console.log(arrB)
+		// 每个小单元相加
+		for (var i = 0; i < length; i++) {
+			var sum = Number(arrA[i]) + Number(arrB[i]) + arrR[i]
+			// 处理进位
+			if (sum > rangeNum) {
+				arrR[i] = sum - (rangeNum + 1)
+				arrR[i + 1] = 1
+				// 与进位临界值相减后的数值需要在前面加0
+				// 例如arrR[i]此时为5，需要加0变成'005'
+				if (String(arrR[i]).length < num) {
+					let num3 = num - String(arrR[i]).length
+					let add0 = ''
+					while (num3 > 0) {
+						add0 += '0'
+						num3--
+					}
+					arrR[i] = add0 + arrR[i]
+				}
+			} else {
+				arrR[i] = sum
+			}
+		}
+		console.log(arrR)
+		if (arrR[arrR.length -1] === 0) {
+			arrR.pop(arrR[arrR.length -1])
+		}
+		return arrR.reverse().join('')
+	}
+	// 测试用，以3位数为一组
+	console.log(addBigNumber('426709752318', '95481253129', 3))
+	console.log(addBigNumber('999999999999', '99999999999', 3))
+</script>
+</html>
